@@ -1,0 +1,154 @@
+FUNCTIONS
+
+//Q1. Write a function that takes two integers and returns the larger of the two.
+fun larger(a:Int,b:Int):Int{
+    return if(a>b){
+        a
+    } else {
+        b
+    }
+}
+fun main(){
+    val result = larger(5,7)
+    println("The larger integer is $result")
+}
+
+//Q2. Write a function sumOfList that takes a list of integers and returns the sum of all elements
+
+fun sumOfList(numbers: List<Int>): Int {
+    var sum = 0
+    for (number in numbers) {
+        sum += number
+    }
+    return sum
+}
+fun main() {
+    val numbers = listOf(1,2,3,4,5,6,7,8)
+    val result = sumOfList(numbers)
+    println("Sum of numbers: $result")
+}
+
+//Q4. Create a function factorial that takes an integer n and returns the factorial of n using recursion
+
+fun factorial(n: Int): Long {
+    return if (n == 0 || n == 1) {
+        1
+    } else {
+        n.toLong() * factorial(n - 1)
+    }
+}
+
+fun main() {
+    val n1 = 8
+    val n2 = 34
+    val n3 = 1
+    
+    println("Factorial of $n1: ${factorial(n1)}") 
+    println("Factorial of $n2: ${factorial(n2)}") 
+    println("Factorial of $n3: ${factorial(n3)}") 
+}
+
+CLASSES
+//1. Define a BankAccount class with properties accountNumber and balance. Implement methods deposit and withdraw to modify the balance, and getBalance to return the current balance.
+
+class BankAccount(
+    val accountNumber: String,
+    private var balance: Double = 0.0
+) {
+    
+    fun deposit(amount: Double) {
+        require(amount > 0) { "Deposit amount must be greater than zero." }
+        balance += amount
+        println("Deposited $amount. New balance: $balance")
+    }
+    
+    fun withdraw(amount: Double) {
+        require(amount > 0) { "Withdrawal amount must be greater than zero." }
+        require(balance >= amount) { "Insufficient funds for withdrawal." }
+        balance -= amount
+        println("Withdrawn $amount. New balance: $balance")
+    }
+    
+    fun getBalance(): Double {
+        return balance
+    }
+}
+
+fun main() {
+    val account = BankAccount("1234567890", 100.0)
+    
+    println("Account Number: ${account.accountNumber}")
+    println("Initial Balance: ${account.getBalance()}")
+
+    account.deposit(50.0)
+    account.withdraw(25.0)
+    
+    println("Final Balance: ${account.getBalance()}")
+}
+
+
+
+
+//2. Inheritance and Polymorphism:Create an abstract class Shape with an abstract method area. Create two subclasses Rectangle and Circle that implement the area method. Add another method perimeter in both subclasses and demonstrate polymorphism.
+
+abstract class Shape {
+    abstract fun area(): Double
+}
+class Rectangle(private val width: Double, private val height: Double) : Shape() {
+
+    override fun area(): Double {
+        return width * height
+    }
+    fun perimeter(): Double {
+        return 2 * (width + height)
+    }
+}
+class Circle(private val radius: Double) : Shape() {
+    override fun area(): Double {
+        return Math.PI * radius * radius
+    }
+    fun perimeter(): Double {
+        return 2 * Math.PI * radius
+    }
+}
+fun main() {
+    val rectangle = Rectangle(5.8, 2.6)
+    val circle = Circle(4.1222)
+    val shapes: List<Shape> = listOf(rectangle, circle)
+    for (shape in shapes) {
+        println("Area: ${shape.area()}")
+        if (shape is Rectangle) {
+            println("Perimeter: ${shape.perimeter()}")
+        } else if (shape is Circle) {
+            println("Perimeter: ${shape.perimeter()}")
+        }
+        println() 
+    }
+}
+
+
+//3. Interface Implementation: Create an interface Drawable with a method drawInfo. Implement this interface in two classes Square and Triangle and print the info about the shapes.
+
+interface Drawable {
+    fun drawInfo(): String
+}
+class Square(val sideLength: Double) : Drawable {
+    override fun drawInfo(): String {
+        return "Square with side length $sideLength"
+    }
+}
+class Triangle(val base: Double, val height: Double) : Drawable {
+    override fun drawInfo(): String {
+        return "Triangle with base $base and height $height"
+    }
+}
+fun printShapeInfo(shape: Drawable) {
+    println(shape.drawInfo())
+}
+fun main() {
+    val square = Square(5.6)
+    val triangle = Triangle(3.2,4.7)
+
+    printShapeInfo(square)
+    printShapeInfo(triangle)
+}

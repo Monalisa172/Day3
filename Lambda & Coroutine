@@ -1,0 +1,170 @@
+QUESTION:1
+import kotlinx.coroutines.*
+fun main() = runBlocking {
+    println("hello")
+    launch{
+        delay(1000L)
+        println("world")
+    }
+    println("")
+}
+
+QUESTION:2
+import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+        handleExceptionsInCoroutine()
+}
+
+suspend fun handleExceptionsInCoroutine() {
+        val job = CoroutineScope(Dispatchers.Default).launch {
+        try {
+             performTask()
+        } catch (e: Exception) {
+             println("Exception caught: ${e.message}")
+        } finally {
+            println("Task completed with or without exceptions.")
+        }
+    }
+
+    job.join()
+}
+
+suspend fun performTask() {
+    delay(1000)
+    throw IllegalArgumentException("Something went wrong during the task.")
+}
+
+QUESTION:3
+fun divideNumbers(numerator: Int, denominator: Int): String {
+   return
+    try {
+        val result = numerator / denominator
+        println("Result: $result")
+    }
+    catch (e:ArithmeticException) {
+       println("Error: Division by zero is not allowed.")
+    }
+}
+
+QUESTION:4
+class InvalidAgeException(message: String) : Exception(message)
+fun checkAge(age: Int) {
+    if (age < 18) {
+        throw InvalidAgeException("Age must be 18 or older. Provided age: $age")
+    } else {
+        println("Age is valid: $age")
+    }
+}
+fun main() {
+    val age = 16
+
+    try {
+        checkAge(age)
+    } catch (e: InvalidAgeException) {
+        println("Caught an exception: ${e.message}")
+    }
+}
+
+QUESTION:5
+fun accessArrayElement(array: Array<Int>, index: Int): Int? {
+    return try {
+        val element = array[index]
+        println("Accessed element: $element")
+        element
+    } catch (e: ArrayIndexOutOfBoundsException) {
+        println("Exception caught: ${e.message}")
+        null
+    } finally {
+        println("Operation finished.")
+    }
+}
+fun main() {
+    val array = arrayOf(1, 2, 3, 4, 5)
+    accessArrayElement(array, 2)  
+    accessArrayElement(array, 10)
+}
+
+QUESTION:6
+import kotlinx.coroutines.*
+fun main() = runBlocking {
+    try {
+        withTimeout(2000L) { 
+            longRunningTask()
+        }
+    } catch (e: TimeoutCancellationException) {
+        println("Task timed out: ${e.message}")
+    }
+}
+suspend fun longRunningTask() {
+    println("Long-running task started...")
+    delay(3000L) 
+    println("Long-running task completed.")
+}
+
+QUESTION:7
+fun sortByAge(people: List<Pair<String, Int>>): List<Pair<String, Int>> {
+    return people.sortedBy { it.second }
+}
+
+fun main() {
+    val people = listOf("I" to 30, "U" to 25, "He" to 35)
+    val sortedPeople = sortByAge(people)
+    println(sortedPeople)
+}
+
+QUESTION:8
+fun processNumbers(numbers: List<Int>): Int {
+    return numbers
+        .map { it * it }            
+        .filter { it % 2 != 0 }     
+        .reduce { sum, num -> sum + num } 
+}
+fun main() {
+    val numbers = listOf(1, 2, 3, 4, 5)
+    val result = processNumbers(numbers)
+    println(result) 
+}
+
+QUESTION:9
+fun createAdder(addend: Int): (Int) -> Int {
+    return { it + addend }
+}
+fun main() {
+    val addFive = createAdder(5)
+    println(addFive(10)) 
+}
+
+QUESTION:10
+fun transformList(strings: List<String>, transformer: (String) -> String): List<String> {
+    return strings.map(transformer)
+}
+fun main() {
+    val strings = listOf("hello", "world", "kotlin")
+    val result = transformList(strings) { it.uppercase() }
+    println(result)
+}
+
+QUESTION:11
+fun processStrings(strings: List<String>, startLetter: Char): List<String> {
+    return strings
+        .filter { it.startsWith(startLetter, ignoreCase = true) } 
+        .map { it.uppercase() }                                    
+        .sorted()                                                 
+}
+fun main() {
+    val strings = listOf("apple", "banana", "avocado", "apricot", "berry")
+    val result = processStrings(strings, 'a')
+    println(result) 
+}
+
+QUESTION:12
+fun calculateFactorial(n: Int): Int {
+    val factorial: (Int) -> Int = { number ->
+        if (number <= 1) 1 else number * factorial(number - 1)
+    }
+    return factorial(n)
+}
+fun main() {
+    println(calculateFactorial(5))
+}
