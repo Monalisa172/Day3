@@ -1,0 +1,195 @@
+package com.example.myapplication1
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Cyan
+import androidx.compose.ui.graphics.Color.Companion.Blue
+import androidx.compose.ui.graphics.Color.Companion.Magenta
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Shadow
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.myapplication1.ui.theme.MyApplication1Theme
+import androidx.compose.ui.*
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.graphics.Brush
+import com.example.myapplication1.ui.theme.Pink80
+import com.example.myapplication1.ui.theme.Purple40
+import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.White
+import com.example.myapplication1.ui.theme.PurpleGrey40
+import android.provider.CalendarContract.Colors
+import androidx.compose.ui.graphics.Color.Companion.Green
+import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.graphics.Color.Companion.Yellow
+
+fontweight   class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //enableEdgeToEdge()
+        setContent {
+            MyApplication1Theme {
+                    Text(text="Welcome to my first Application",
+                        color = Color.Green,
+                        fontSize = 25.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontStyle = FontStyle.Italic)
+                }
+            }
+        }
+    }
+
+SHADOW WITH FONTSIZE:-
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //enableEdgeToEdge()
+        setContent {
+            MyApplication1Theme {
+                    val offset = Offset(5.0f, 10.0f)
+                    Text(
+                        text = "Hello guys,im so happy to meet you, you people are amazing",
+                        style = TextStyle(
+                            fontSize = 40.sp,
+                            shadow = Shadow(
+                                color = Color.Magenta, offset = offset, blurRadius = 3f
+                            )
+                        )
+                    )
+                }
+            }
+        }
+    }
+
+
+ADD MULTIPLE STYLES IN TEXT:-
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //enableEdgeToEdge()
+        setContent {
+            MyApplication1Theme {
+                Text(
+                    buildAnnotatedString {
+                        withStyle(style = SpanStyle(fontSize= 30.sp,
+                            color = Color.DarkGray,
+                            fontWeight= FontWeight.ExtraBold)) {
+                            append("H")
+                        }
+                        append("ello ")
+
+                        withStyle(style = SpanStyle(fontSize = 30.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = Color.Green)) {
+                            append("W")
+                        }
+                        append("orld")
+                    }
+                )
+            }
+        }
+    }
+}
+
+
+
+ENABLE ADVANCED STYLING WITH BRUSH :-
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //enableEdgeToEdge()
+        setContent {
+            MyApplication1Theme {
+                val gradientColor = listOf(Cyan, Blue, Purple40 /.../)
+                Text(
+                    text = "Welcome to my World...,How are you...., Hope you are doing well",
+                    fontSize= 30.sp,
+                    style = TextStyle(
+                        brush = Brush.linearGradient(
+                            colors = gradientColor as List<Color> )
+                    )
+                )
+            }
+
+        }
+    }
+}
+
+
+INTEGRATION:-
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //enableEdgeToEdge()
+        setContent {
+            MyApplication1Theme {
+                val rainbowColors = listOf(Purple40, Pink80, Blue /.../)
+                Text(
+                    fontSize = 30.sp,
+                    text = buildAnnotatedString {
+                        append("Do not allow people to dim your shine\n")
+                        withStyle(
+                            SpanStyle(
+                                brush = Brush.linearGradient(colors = rainbowColors)
+                            )
+                        ) {
+                            append("because they are blinded.")
+                        }
+                        append("\nTell them to put some sunglasses on.")
+                    }
+                )
+
+            }
+        }
+    }
+}
+
+
+SPAN:-
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //enableEdgeToEdge()
+        setContent {
+            MyApplication1Theme {
+                val rainbowColors = listOf(Purple40, Blue,Green, Yellow, Red /.../)
+                val brush = Brush.linearGradient(colors = rainbowColors)
+                Text(
+                    fontSize= 30.sp,
+                    text = buildAnnotatedString{
+                        withStyle(
+                            SpanStyle(
+                                brush = brush, alpha = .5f
+                            )
+                        ) {
+                            append(" Plant is our best friend")
+                        }
+                        withStyle(
+                            SpanStyle(
+                                brush = brush, alpha = 1f
+                            )
+                        ) {
+                            append(" We should grow more plants...❤")
+                        }
+                    }
+                )
+            }
+        }
+    }
+}
