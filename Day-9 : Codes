@@ -1,0 +1,523 @@
+package com.example.myapplication1
+
+import android.graphics.drawable.shapes.ArcShape
+import android.graphics.drawable.shapes.OvalShape
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.ui.graphics.Color
+import androidx.compose.material3.Card
+import androidx.compose.ui.graphics.Color.Companion.Cyan
+import androidx.compose.ui.graphics.Color.Companion.Blue
+import androidx.compose.ui.graphics.Color.Companion.Magenta
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Shadow
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.myapplication1.ui.theme.MyApplication1Theme
+import androidx.compose.ui.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.graphics.Brush
+import com.example.myapplication1.ui.theme.Pink80
+import com.example.myapplication1.ui.theme.Purple40
+import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.White
+import com.example.myapplication1.ui.theme.PurpleGrey40
+import android.provider.CalendarContract.Colors
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.ui.graphics.Color.Companion.Green
+import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.graphics.Color.Companion.Yellow
+import androidx.compose.material3.Button
+import androidx.compose.ui.layout.layout
+import androidx.compose.ui.modifier.modifierLocalOf
+import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.RectangleShape
+import android.graphics.drawable.shapes.*
+import android.util.Log
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.AccountCircle
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Create
+import androidx.compose.material.icons.rounded.Favorite
+import androidx.compose.material.icons.rounded.FavoriteBorder
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.InputChip
+import androidx.compose.material3.InputChipDefaults
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SuggestionChip
+import androidx.compose.material3.Switch
+import androidx.compose.material3.VerticalDivider
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.res.colorResource
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
+
+Simple Button With Click :-
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //enableEdgeToEdge()
+        setContent {
+            MyApplication1Theme {
+                    Column(
+                            modifier=Modifier
+                                .fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Button(onClick = {
+                            println("Button:- I am clicked")
+                        }) {
+                            Text(text="Add to cart")
+                        }
+                    }
+            }
+        }
+    }
+
+
+Buttons in Row:- 
+    class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //enableEdgeToEdge()
+        setContent {
+            MyApplication1Theme {
+                Row(
+                    modifier=Modifier
+                .fillMaxSize(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center) {
+                Button(onClick = { /TODO/ }) {
+                    Text(text="Click Here",color= Color.White)
+                }
+                Button(onClick = { /TODO/ }) {
+                    Text(text ="Go Back")
+                }
+             }
+            }
+        }
+    }
+
+
+Buttons in Column :-  
+    class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //enableEdgeToEdge()
+        setContent {
+            MyApplication1Theme {
+                Column(
+                    modifier=Modifier
+                .fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally) {
+                Button(onClick = { /TODO/ }) {
+                    Text(text="Click Here",color= Color.White)
+                }
+                Button(onClick = { /TODO/ }) {
+                    Text(text ="Go Back")
+                }
+             }
+            }
+        }
+    }
+
+
+Filled tonal Button:-
+                Column(
+                    modifier=Modifier
+                .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                FilledTonalButton(onClick = { /TODO/ }) {
+                    Text(text="Click Here",color= Color.Black)
+                }
+                FilledTonalButton(onClick = { /TODO/ }) {
+                    Text(text ="Go Back")
+                }
+
+
+Outlined Button:- 
+            setContent {
+            MyApplication1Theme {
+                Column(
+                    modifier=Modifier
+                .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                OutlinedButton(onClick = { /TODO/ }) {
+                    Text(text="Click Here",color= Color.Black)
+                }
+                FilledTonalButton(onClick = { /TODO/ }) {
+                    Text(text ="Go Back")
+                }
+             }
+            }
+        }
+
+
+Elivated Button:-  
+            setContent {
+            MyApplication1Theme {
+                Column(
+                    modifier=Modifier
+                .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                ElevatedButton(onClick = { /TODO/ }) {
+                    Text(text="Click Here",color= Color.Black)
+                }
+                ElevatedButton(onClick = { /TODO/ }) {
+                    Text(text ="Go Back")
+                }
+             }
+            }
+        }
+
+
+Text Button:-  
+            setContent {
+            MyApplication1Theme {
+                Column(
+                    modifier=Modifier
+                .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                TextButton(onClick = { /TODO/ }) {
+                    Text(text="Click Here",color= Color.Black)
+                }
+                ElevatedButton(onClick = { /TODO/ }) {
+                    Text(text ="Go Back")
+                }
+             }
+            }
+        }
+
+
+Card with ColorResource:-  
+    class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //enableEdgeToEdge()
+        setContent {
+            MyApplication1Theme {
+                Column(
+                    modifier= Modifier
+                        .padding(5.dp)
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally)
+                {
+                    Card(
+                        modifier = Modifier
+                            .size(width = 100.dp, height = 200.dp),
+                        colors = CardDefaults.cardColors
+                            (containerColor = colorResource(id = R.color.purple_200),
+                            contentColor = Color.Black)
+                    ) {
+                        Text(text="Hello")
+                        Text("Everyone")
+                    }
+                }
+            }
+        }
+    }
+
+
+
+Cards with Button :- 
+    class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //enableEdgeToEdge()
+        setContent {
+            MyApplication1Theme {
+                Column(
+                    modifier= Modifier
+                        .padding(5.dp)
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally)
+                {
+                    Card(
+                        modifier = Modifier
+                            .size(width = 100.dp, height = 200.dp),
+                        colors = CardDefaults.cardColors
+                            (containerColor = colorResource(id = R.color.teal_200),
+                            contentColor = Color.Magenta)
+                    ) {
+                        Text(text="Hello")
+                        Text("Everyone")
+                    }
+                    Button(onClick = { /TODO/ },modifier= Modifier
+                        .size(width =150.dp,height= 150.dp)) {
+                        Text("World is....")
+                    }
+                }
+            }
+        }
+    }
+}
+}
+
+
+Brightness Slider :-
+    class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //enableEdgeToEdge()
+        setContent {
+            var value by remember{
+                mutableFloatStateOf(0f)
+            }
+            MyApplication1Theme {
+                Column(
+                    modifier= Modifier
+                        .padding(5.dp)
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally)
+                {
+                    Text(text = "Brightness")
+                    Slider(value = value , onValueChange = {
+                        value= it
+                    }
+                    )
+                    Text(text = value.toString())
+                }
+            }
+        }
+    }
+
+
+Volume Slider :- 
+    class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //enableEdgeToEdge()
+        setContent {
+            var value by remember{
+                mutableFloatStateOf(0f)
+            }
+            MyApplication1Theme {
+                Column(
+                    modifier= Modifier
+                        .padding(5.dp)
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally)
+                {
+                    Text(text = "Volume")
+                    Slider(value = value , onValueChange = {
+                        value= it
+                    }
+                    )
+                    Text(text = value.toString())
+                }
+            }
+        }
+    }
+
+
+Switch :-  
+    class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //enableEdgeToEdge()
+        setContent {
+            var checked by remember {
+                mutableFloatStateOf(true)
+            }
+            MyApplication1Theme {
+                Column(
+                    modifier= Modifier
+                        .padding(5.dp)
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally)
+                {
+                    Switch(onCheckedChange = { checked = it },
+                        checked = checked)
+                }
+            }
+        }
+    }
+
+
+Assist Chip :- 
+    AssistChip(
+        onClick = { Log.d("Assist chip", "hello world") },
+        label = { Text("Assist chip") },
+        leadingIcon = {
+            Icon(
+                Icons.Filled.Settings,
+                contentDescription = "Localized description",
+                Modifier.size(AssistChipDefaults.IconSize)
+            )
+        }
+    )
+}
+
+
+Filter Chip :-  
+    var selected by remember { mutableStateOf(false) }
+    FilterChip(
+        onClick = { selected = !selected },
+        label = {
+            Text("Filter chip")
+        },
+        selected = selected,
+        leadingIcon = if (selected) {
+            {
+                Icon(
+                    imageVector = Icons.Filled.Done,
+                    contentDescription = "Done icon",
+                    modifier = Modifier.size(FilterChipDefaults.IconSize)
+                )
+            }
+        } else {
+            null
+        },
+    )
+}
+
+
+suggestion chip :-  
+            setContent {
+            MyApplication1Theme {
+                Column(
+                    modifier = Modifier
+                        .padding(5.dp)
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                )
+                {
+                        SuggestionChip(
+                            onClick = { Log.d("Suggestion chip", "hello world") },
+                            label = { Text("Suggestion chip") }
+                        )
+                    }
+                }
+            }
+        }
+
+
+Horizontal Divider :- 
+            setContent {
+            MyApplication1Theme {
+                Column(
+                    modifier = Modifier
+                        .padding(5.dp)
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                )
+                {
+                            Text("First item in list")
+                            HorizontalDivider(thickness = 2.dp)
+                            Text("Second item in list")
+                        }
+                    }
+                    }
+                }
+            }
+    }
+
+
+Vertical Divider :- 
+            setContent {
+            MyApplication1Theme {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(IntrinsicSize.Min),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        Text("First item in row")
+                        VerticalDivider(color = MaterialTheme.colorScheme.secondary)
+                        Text("Second item in row")
+                }
+            }
+        }
+
+
+Indetermine Progress Indicator :- 
+            setContent {
+            MyApplication1Theme {
+                    var loading by remember { mutableStateOf(false) }
+
+                    Button(onClick = { loading = true }, enabled = !loading) {
+                        Text("Start loading")
+                    }
+
+                    if (!loading) return@MyApplication1Theme
+
+                    CircularProgressIndicator(
+                        modifier = Modifier.width(64.dp),
+                        color = MaterialTheme.colorScheme.secondary,
+                        trackColor = MaterialTheme.colorScheme.surfaceVariant,
+                    )
+            }
+        }
+    }
+}
