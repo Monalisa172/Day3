@@ -1,0 +1,125 @@
+MVVM:-
+    class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //enableEdgeToEdge()
+        setContent {
+            CounterView()
+        }
+    }
+
+    @Composable
+    fun CounterView(counterVM:CounterViewModel = viewModel()){
+        val counterState = counterVM.counter.value
+        Column (modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally){
+            Text(text = "New Current Counter value : ${counterState.count}")
+            Row {
+                Button(onClick = { /TODO/ counterVM.incrementCounter() }) {
+                    Text(text = "Increment value")
+                }
+                Spacer(modifier = Modifier.padding(20.dp))
+                Button(onClick = { /TODO/ counterVM.decrementCounter() })
+                {
+                    Text(text = "Decrement value")
+                }
+            }
+            Button(onClick = { /TODO/ counterVM.resetCounter()})
+            {
+                Text(text = "Reset Value")
+            }
+        }
+    }
+}
+
+
+//Model class
+data class Counter(val count:Int)
+data class User(val username:String,val password:String)
+
+
+//ViewModel Class
+class CounterViewModel : ViewModel(){
+    private val _counter = mutableStateOf(Counter(0))
+    val counter: State<Counter> = _counter //Public Counter Variable
+
+    fun incrementCounter() {
+        _counter.value = Counter(_counter.value.count + 1)
+    }
+    fun decrementCounter() {
+        _counter.value = Counter(_counter.value.count - 1)
+    }
+    fun resetCounter(){
+        _counter.value = Counter(0)
+    }
+}
+
+
+Generics :-  
+    class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //enableEdgeToEdge()
+        setContent {
+            CounterView()
+        }
+    }
+
+    @Composable
+    fun CounterView(counterVM:CounterViewModel = viewModel()){
+        val intContent = GenericClass(128)
+        val stringContent = GenericClass("Hello Generics")
+        val counterState = counterVM.counter.value
+        Column (modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally){
+            Text(text = "New Current Counter value : ${counterState.count}")
+            Row {
+                Button(onClick = { /TODO/ counterVM.incrementCounter() }) {
+                    Text(text = "Increment value")
+                }
+                Spacer(modifier = Modifier.padding(20.dp))
+                Button(onClick = { /TODO/ counterVM.decrementCounter() })
+                {
+                    Text(text = "Decrement value")
+                }
+            }
+            Button(onClick = { /TODO/ counterVM.resetCounter()
+                println("${intContent.content},${stringContent.content}")
+            displaySomething(23)
+            displaySomething("hellooo")
+            displaySomething(12.55)})
+            {
+                Text(text = "Reset Value")
+            }
+        }
+    }
+    fun <T>displaySomething(content: T){
+        println(content)
+    }
+}
+
+//Model class
+data class Counter(val count:Int)
+data class User(val username:String,val password:String)
+
+
+//ViewModel Class
+class CounterViewModel : ViewModel(){
+    private val _counter = mutableStateOf(Counter(0))
+    val counter: State<Counter> = _counter //Public Counter Variable
+
+    fun incrementCounter() {
+        _counter.value = Counter(_counter.value.count + 1)
+    }
+    fun decrementCounter() {
+        _counter.value = Counter(_counter.value.count - 1)
+    }
+    fun resetCounter(){
+        _counter.value = Counter(0)
+    }
+}
+
+class GenericClass<T>(var content : T)
+
