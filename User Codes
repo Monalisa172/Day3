@@ -1,0 +1,201 @@
+User (MainActivity) :- 
+package com.example.myapplication1
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import com.example.myapplication1.ui.theme.MyApplication1Theme
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import androidx.activity.viewModels
+import com.example.myapplication1.Model.Data.Product
+import com.example.myapplication1.ViewModel.ProductViewModel
+import com.example.myapplication1.ViewModel.UserViewModel
+import com.example.myapplication1.Views.ProductScreen
+import com.example.myapplication1.Views.UserScreen
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //enableEdgeToEdge()
+        setContent {
+            var value by remember { mutableFloatStateOf(0f) }
+            var checked by remember { mutableStateOf(true) }
+            val userVM : UserViewModel by viewModels()
+            MyApplication1Theme {
+                UserScreen(userVM)
+            }
+        }
+    }
+}
+
+UserScreen :- 
+package com.example.myapplication1.Views
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import com.example.myapplication1.Model.Data.Product
+import com.example.myapplication1.Model.Data.User
+import com.example.myapplication1.ViewModel.ProductViewModel
+import com.example.myapplication1.ViewModel.UserViewModel
+
+@Composable
+fun UserScreen(userVM: UserViewModel){
+    val users by userVM.user.observeAsState(emptyList())
+    LazyColumn {
+        items(users){
+            UserItem(user = it)
+        }
+    }
+}
+
+@Composable
+fun UserItem(user: User){
+    Card(modifier = Modifier
+        .fillMaxWidth()
+        .padding(10.dp)) {
+        Column (modifier= Modifier
+            .padding(5.dp)
+            .fillMaxWidth(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally){
+        }
+        Text(text = user.username)
+    }
+}
+
+User Details :- 
+package com.example.myapplication1.Model.Data
+
+import android.provider.ContactsContract.CommonDataKinds.Phone
+import com.google.gson.annotations.SerializedName
+
+
+data class User(
+    val id: Int,
+    val email: String,
+    val password: String,
+    val username : String,
+    val phone : Int,
+    val name: Name
+)
+
+data class Name(
+    val firstname: String,
+    val lastname: String
+)
+
+User ViewModel :-   
+package com.example.myapplication1.ViewModel
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.myapplication1.Model.API.RetrofitClient
+import com.example.myapplication1.Model.Data.Product
+import com.example.myapplication1.Model.Data.User
+import com.example.myapplication1.Model.Repository.ProductRepository
+import com.example.myapplication1.Model.Repository.UserRepository
+import kotlinx.coroutines.launch
+
+class UserViewModel :
+    ViewModel(){
+    private val _users = MutableLiveData<List<User>>()
+    val user : LiveData<List<User>> get() = _users
+
+    private val repository = UserRepository(RetrofitClient.apiService)
+
+    init {
+        fetchUser()
+    }
+
+    fun fetchUser(){
+        viewModelScope.launch {
+            try{
+                val userList = repository.getUsers()
+                _users.postValue(userList)
+                println("API DATA CALLED : $userList")
+            }catch (e: Exception){
+            }
+        }
+    }
+}
+
+User API Service :- 
+package com.example.myapplication1.Model.API
+
+import com.example.myapplication1.Model.Data.Product
+import com.example.myapplication1.Model.Data.User
+import retrofit2.http.GET
+
+interface ApiService{
+
+    @GET("Users")
+    suspend fun getUsers(): List<User>
+}
+
+
+User RetrofitClient :- 
+package com.example.myapplication1.Model.API
+
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+
+object RetrofitClient{
+    private const val BASE_URL = "https://fakestoreapi.com"
+    val apiService: ApiService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ApiService::class.java)
+    }
+
+
+User Repository :- 
+package com.example.myapplication1.Model.Repository
+
+import com.example.myapplication1.Model.API.ApiService
+import com.example.myapplication1.Model.Data.Product
+import com.example.myapplication1.Model.Data.User
+
+class UserRepository(private val apiService : ApiService){
+    suspend fun getUsers(): List<User>{
+        return apiService.getUsers()
+    }
+}
+}
